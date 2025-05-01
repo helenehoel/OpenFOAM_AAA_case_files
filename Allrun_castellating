@@ -1,0 +1,29 @@
+#!/bin/bash
+# Source OpenFOAM environment
+#source $WM_PROJECT_DIR/etc/bashrc
+
+# Step 1: Generate the mesh using blockMesh
+echo "Running blockMesh..."
+blockMesh
+
+# Step 2: Extract surface features
+echo "Running surfaceFeatureExtract..."
+surfaceFeatureExtract
+
+# Step 3: Decompose the domain for parallel processing
+#echo "Running decomposePar..."
+#decomposePar
+
+# Step 4: Run snappyHexMesh in parallel using MPI
+#echo "Running snappyHexMesh in parallel..."
+#mpirun -np 8 snappyHexMesh -dict system/snappyHexMeshDict -overwrite -parallel
+
+echo "Running SHM on ONE processor"
+snappyHexMesh -dict system/snappyHexMeshDict -overwrite
+
+echo "Castellating and snap successful"
+# Step 5: reconstructing par
+#echo "Reconstructing ..."
+#reconstructParMesh -constant
+
+#echo "Castellation and Snap successfull, next is addLayers. OBS: remember to remove processors."

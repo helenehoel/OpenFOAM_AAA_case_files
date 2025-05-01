@@ -1,0 +1,13 @@
+echo "Starting addLayers" | tee log.addLayers
+
+#echo "Step 1:decomposePar" | tee -a log.addLayers
+#decomposePar | tee -a log.addLayers
+
+# OBS: remember to change startTime in controlDict
+echo "Running addLayers on ONE processor" | tee -a log.addLayers
+snappyHexMesh -dict system/snappyHexMeshDict_layering -overwrite | tee -a log.addLayers
+
+#echo "Reconstructing par..." | tee -a log.addLayers
+#reconstructParMesh -constant | tee -a log.addLayers
+#echo "Successfully reconstructed par" | tee -a log.addLayers
+echo "addLayers is completed"

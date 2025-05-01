@@ -1,0 +1,19 @@
+# Ensure the script stops if any command fails
+set -e
+
+echo "Starting OpenFOAM parallel simulation..."
+
+# Step 1: Decompose the domain
+echo "Decomposing domain for parallel processing..."
+decomposePar > log.decomposePar 2>&1
+
+# Step 2: Run pimpleFoamWK3 in parallel
+echo "Running simulation with pimpleFoamWK3 using 38 cores..."
+mpirun -np 38 pimpleFoamWK3 -parallel > log.pimpleFoamWK3 2>&1
+
+# Step 3: Reconstruct the solution
+echo "Reconstructing results..."
+reconstructPar > log.reconstructPar 2>&1
+
+echo "Simulation successful!"
+echo "Ready to create .foam file..."
