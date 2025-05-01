@@ -14,6 +14,6 @@ In order to reproduce the simulations, one must first create a triSurface folder
 
    Command: ./Allrun_WK3
 
-This step requires that the threeElementWindkessel boundary condition is linked to the pimpleFoam solver. 
+This step requires that the threeElementWindkessel boundary condition is linked to the pimpleFoam solver. The executable files must be adjusted according to the number of processors utilized for the simulations. 
    
 
