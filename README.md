@@ -1,19 +1,22 @@
 # OpenFOAM_AAA_case_files
-This repository contains information on boundary conditions, system settings, transport properties, and mesh configurations used in the models analyzed as part of my Master's thesis. It includes nearly all components necessary to reproduce the simulations. However, due to the large file size, the STL surfaces used in the snappyHexMesh process are not included in the constant/triSurface directory.
+This repository containes the complete case configurations of the geometries analysed as part of my Master's thesis: AFN1, AAA001, AAA004, AAA013, AAA014, and AAA017. 
+The 0 folder contains the boundary conditions employed, including the implemented three Element Windkessel boundary condition (threeElementWindkessel).
+The system folder contains files that together constitutes the complete solver settings and mesh configurations. This includes the blockMeshDict and snappyHexMeshDict files that are required in order to generate the mesh. 
+In the constant folder, the kinematic viscosity is defined (transportProperties). Note that this folder should also contain the trisurface STL file that is required for the execution of snappyHexMesh. However, these files are excluded due to large file sizes. A prerequisite for the execution of snappyHexMesh is therefore to create a triSurface folder within the constant folder, and subsequently include the STL files here. 
 
-The implemented boundary condition code is included in the pimpleFoamWK3 folder. In order to link these to the pimpleFoam solver, one can follow the procedure outlined in the thesis. Note that the implemented threeElementWindkessel boundary condition, is largely based on code developed by M. Raza. His original implementation and documentation can be found in his project report: https://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2024/MuhammadAhmadRaza/OSCFD2024_ProjectReport_MARaza.pdf
+The implemented boudnary condition code is included in the pimpleFoamWK3 folder. These files must be linked to the pimpleFoam solver in order to run the simulations. This procedure is detailed in the thesis. Note that the implemented threeElementWindkessel boundary condition, is largely based on code developed by M. Raza. His original implementation and documentation can be found in his project report: https://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2024/MuhammadAhmadRaza/OSCFD2024_ProjectReport_MARaza.pdf
 
-In order to reproduce the simulations, one must first create a triSurface folder in the constant dictionary. The STL files for each respective geoemtry must thereafter be included in constant/triSurface. When this is done, the following procedure can be used to run the simulations: 
+The executable files (Allrun_castellating and Allrun_addLayers) automizes the procedure required for mesh generation with snappyHexMesh in two steps: castellate and snap, and addLayers. The last executable file (Allrun_WK3) automizes the procedure required for running pimpleFoam. Note that these files must be copied into all the case folders. After the STL files are provided in the triSurface folder, and the threeElementWindkessel is linked to the solver, the simulations can be conducted using teh following procedure:
 
 1. Generate the mesh with snappyHexMesh. The procedure is automized by the Allrun_castellating and Allrun_addLayers executable files. Perform the following commands from terminal
 
    Command: ./Allrun_castellating
    Command: ./Allrun_addLayers
 
-2. Run the simulations in parallel. The procedure is automized by the Allrun_WK3 executable files. Run teh following command:
+2. Run the simulations in parallel. The procedure is automized by the Allrun_WK3 executable files. Run the following command:
 
    Command: ./Allrun_WK3
 
-This step requires that the threeElementWindkessel boundary condition is linked to the pimpleFoam solver. The executable files must be adjusted according to the number of processors utilized for the simulations. 
+Note that the number of processors must be changed in the Allrun_WK3 executable file, and in system/decomposeParDict. This can be done by utilizing the 'nano' command from terminal. 
    
 
