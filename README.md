@@ -1,8 +1,11 @@
 # OpenFOAM_AAA_case_files
-This repository contains the complete case configurations for the geometries analysed as part of my Master's thesis: AFN1, AAA001, AAA004, AAA013, AAA014, and AAA017. 
-The 0 folder contains the boundary conditions employed, including the implemented three-Element Windkessel boundary condition (threeElementWindkessel).
-The system folder contains files that together constitutes the complete solver settings and mesh configurations. This includes the blockMeshDict and snappyHexMeshDict files that are required in order to generate the mesh. 
-In the constant folder, the kinematic viscosity is defined (transportProperties). Note that this folder sholud also include a triSurface folder containing the STL trisurface. Due to the large file sizes, this folder is only included as a zip file for AAA014, AAA001 and AAA004. These STL files are a necessary prerequisite for the execution of snappyHexMesh. 
+This repository contains the complete case configurations for the geometries analysed as part of my Master's thesis: AFN1, AAA001, AAA004, AAA013, AAA014, and AAA017. The five AAA models corresponds to geometries of patients diagnosed with abdominal aortic aneurysms, and was collected from the open dataset AAA-100 (https://zenodo.org/records/10932957).
+
+The 0 folder contains the employed boundary conditions. The flowRateInletVelocity boundary conditions is utilized for the inlet velocity. The corresponding volumetric flow rate file is provided in the DataFiles folder. The implemented three-element Windkessel boundary condition (threeElementWindkessel) is utilized at the outlet boundaries for pressure. 
+
+The system folder contains all simulation settings. In this file, one can find the employed discretization schemes (fvSchemes) and linear solvers (fvSolution). The mesh configurations are provided in two snappyHexMesh (SHM) files: snappyHexMeshDict and snappyHexMeshDict_layering. These utilize the mesh quality control parameters in meshQualityDict and meshQualityDict_layering, respectively. The two sets of SHM files are used in order to perform castellation and snapping in one step, and the layer addition in a final separate step. The reason for this is described in the thesis. 
+
+The constant folder contains the definition of kinematic viscosity. This folder should also contain a triSurface folder with a corresponding STL trisurface file. It should be noted that this is an essential prerequisite for the execution of SHM. However, due to large file sizes, these folders were only possible to obtain for AAA001, AAA004, and AAA014.
 
 The implemented boudnary condition code is included in the pimpleFoamWK3 folder. These files must be linked to the pimpleFoam solver in order to run the simulations. This procedure is detailed in the thesis. Note that the implemented threeElementWindkessel boundary condition, is largely based on code developed by M. Raza. His original implementation and documentation can be found in his project report: https://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2024/MuhammadAhmadRaza/OSCFD2024_ProjectReport_MARaza.pdf
 
